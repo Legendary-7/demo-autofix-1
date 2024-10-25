@@ -21,7 +21,7 @@ def get_user():
     user_id = request.args.get('id')
     cursor = conn.cursor()
     # Introducing SQL Injection vulnerability
-    cursor.execute(f"SELECT name FROM user WHERE id = {user_id}")
+    cursor.execute("SELECT name FROM user WHERE id = ?", (user_id,))
     user = cursor.fetchone()
     if user:
         return f"User: {user[0]}"
